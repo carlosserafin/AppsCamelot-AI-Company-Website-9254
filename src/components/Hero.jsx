@@ -27,14 +27,14 @@ const Hero = () => {
                 <SafeIcon icon={FiZap} className="text-lg" />
                 <span>AI Automation Services</span>
               </motion.div>
-              
+
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Transform Your Business with{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
                   AI Excellence
                 </span>
               </h1>
-              
+
               <p className="text-xl text-gray-600 leading-relaxed">
                 AppsCamelot creates cutting-edge software solutions and WAiBOT - the ultimate AI Sales Expert Agents for any industry and customer care AI Agents.
               </p>
@@ -52,6 +52,7 @@ const Hero = () => {
                 <span>Get Started</span>
                 <SafeIcon icon={FiArrowRight} className="text-lg" />
               </motion.a>
+
               <motion.a
                 href="https://waibot.io"
                 target="_blank"
@@ -92,21 +93,36 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
+            {/* Knight Background Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative mb-6 w-full"
+            >
+              <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden">
+                {/* Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ 
+                    backgroundImage: "url('https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753813051016-camelot-caballeros.jpg')",
+                  }}
+                ></div>
+              </div>
+            </motion.div>
+
             <div className="relative bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 shadow-2xl">
               <div className="bg-white rounded-2xl p-6 space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
-                    <img
-                      src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png"
-                      alt="WAiBOT Logo"
-                      className="w-full h-full object-contain"
-                    />
+                    <img src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png" alt="WAiBOT Logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900">WAiBOT</h3>
                     <p className="text-sm text-gray-600">AI Sales Expert</p>
                   </div>
                 </div>
+
                 <div className="space-y-3">
                   <div className="bg-gray-50 rounded-lg p-3">
                     <p className="text-sm text-gray-700">
@@ -126,7 +142,7 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Floating elements */}
               <motion.div
                 animate={{ y: [-10, 10, -10] }}
