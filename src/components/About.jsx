@@ -65,7 +65,7 @@ const About = () => {
             About <span className="bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">AppsCamelot</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We are a leading AI Factory Business specializing in software development and artificial intelligence solutions that transform how businesses operate and engage with their customers.
+            We are a leading AI Automation Services company specializing in software development and artificial intelligence solutions that transform how businesses operate and engage with their customers.
           </p>
         </motion.div>
 
@@ -143,10 +143,10 @@ const About = () => {
                 >
                   <div className="flex items-center space-x-4 mb-4">
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={product.logo} 
-                        alt={`${product.name} Logo`} 
-                        className="w-12 h-12 object-contain" 
+                      <img
+                        src={product.logo}
+                        alt={`${product.name} Logo`}
+                        className="w-12 h-12 object-contain"
                       />
                     </div>
                     <div className="flex-1">

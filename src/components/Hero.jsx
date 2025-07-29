@@ -25,7 +25,7 @@ const Hero = () => {
                 className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
               >
                 <SafeIcon icon={FiZap} className="text-lg" />
-                <span>AI Factory Business</span>
+                <span>AI Automation Services</span>
               </motion.div>
               
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
@@ -52,7 +52,6 @@ const Hero = () => {
                 <span>Get Started</span>
                 <SafeIcon icon={FiArrowRight} className="text-lg" />
               </motion.a>
-              
               <motion.a
                 href="https://waibot.io"
                 target="_blank"
@@ -97,9 +96,9 @@ const Hero = () => {
               <div className="bg-white rounded-2xl p-6 space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
-                    <img 
-                      src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png" 
-                      alt="WAiBOT Logo" 
+                    <img
+                      src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png"
+                      alt="WAiBOT Logo"
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -108,7 +107,6 @@ const Hero = () => {
                     <p className="text-sm text-gray-600">AI Sales Expert</p>
                   </div>
                 </div>
-                
                 <div className="space-y-3">
                   <div className="bg-gray-50 rounded-lg p-3">
                     <p className="text-sm text-gray-700">
@@ -128,7 +126,7 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-
+              
               {/* Floating elements */}
               <motion.div
                 animate={{ y: [-10, 10, -10] }}

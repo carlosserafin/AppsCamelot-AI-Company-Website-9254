@@ -38,16 +38,8 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    {
-      icon: FiLinkedin,
-      href: 'https://www.linkedin.com/in/carlosserafin',
-      label: 'LinkedIn'
-    },
-    {
-      icon: FiTwitter,
-      href: '#',
-      label: 'Twitter'
-    }
+    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/carlosserafin', label: 'LinkedIn' },
+    { icon: FiTwitter, href: '#', label: 'Twitter' }
   ];
 
   return (
@@ -64,9 +56,9 @@ const Footer = () => {
               className="flex items-center space-x-3"
             >
               <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden bg-white">
-                <img 
-                  src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753292954833-apps%20camelot%20logo.png" 
-                  alt="AppsCamelot Logo" 
+                <img
+                  src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753292954833-apps%20camelot%20logo.png"
+                  alt="AppsCamelot Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -74,10 +66,10 @@ const Footer = () => {
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                   AppsCamelot
                 </h3>
-                <p className="text-sm text-gray-400">AI Factory Business</p>
+                <p className="text-sm text-gray-400">AI Automation Services</p>
               </div>
             </motion.div>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +78,7 @@ const Footer = () => {
             >
               Transforming businesses worldwide with cutting-edge AI solutions, WAiBOT - the ultimate AI Sales Expert Agents, and Ticket Factura for seamless electronic invoicing.
             </motion.p>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -115,16 +107,16 @@ const Footer = () => {
               className="flex items-center space-x-4 pt-2"
             >
               <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png" 
-                  alt="WAiBOT Logo" 
+                <img
+                  src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753298591040-waibot-logo.png"
+                  alt="WAiBOT Logo"
                   className="w-8 h-8 object-contain"
                 />
               </div>
               <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbPbx15QZrEKxAWtKBRlymDQl6-wf21zUiw&s" 
-                  alt="Ticket Factura Logo" 
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbPbx15QZrEKxAWtKBRlymDQl6-wf21zUiw&s"
+                  alt="Ticket Factura Logo"
                   className="w-8 h-8 object-contain"
                 />
               </div>
@@ -138,8 +130,8 @@ const Footer = () => {
               className="flex space-x-4"
             >
               {socialLinks.map((social) => (
-                <a 
-                  key={social.label} 
+                <a
+                  key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -165,8 +157,8 @@ const Footer = () => {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link}>
-                    <a 
-                      href="#" 
+                    <a
+                      href="#"
                       className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
                     >
                       {link}
@@ -193,9 +185,9 @@ const Footer = () => {
               </p>
             </div>
             <div className="flex space-x-3">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
+              <input
+                type="email"
+                placeholder="Enter your email"
                 className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
               />
               <button className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow">

@@ -156,7 +156,7 @@ const Services = () => {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: '1700+ Smart sales conversations and growing', value: ' ' },
+                  { label: 'Smart sales conversations and growing', value: '1700+' },
                   { label: 'Avg. Sales Increase', value: '45%' },
                   { label: 'Customer Satisfaction', value: '96%' },
                   { label: 'Response Time', value: '<1s' }

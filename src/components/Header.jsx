@@ -20,7 +20,6 @@ const Header = () => {
     if (element) {
       const headerHeight = 80; // Approximate header height
       const elementPosition = element.offsetTop - headerHeight;
-      
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
@@ -44,9 +43,9 @@ const Header = () => {
             onClick={() => scrollToSection('#home')}
           >
             <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
-              <img 
-                src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753292926473-appscamelot-icon.png" 
-                alt="AppsCamelot Icon" 
+              <img
+                src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1753292926473-appscamelot-icon.png"
+                alt="AppsCamelot Icon"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -54,7 +53,7 @@ const Header = () => {
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
                 AppsCamelot
               </h1>
-              <p className="text-xs text-gray-600">AI Factory Business</p>
+              <p className="text-xs text-gray-600">AI Automation Services</p>
             </div>
           </motion.div>
 
