@@ -10,26 +10,79 @@ const Contact = () => {
     name: '',
     email: '',
     company: '',
-    message: ''
+    website: '',
+    message: '',
+    services: {
+      aiAutomation: false,
+      aiChatbot: false,
+      mvpWebApp: false,
+      enterpriseWebApp: false,
+      other: false
+    }
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
+    
+    // Prepare services selected for email
+    const selectedServices = Object.entries(formData.services)
+      .filter(([_, isSelected]) => isSelected)
+      .map(([service]) => {
+        const serviceNames = {
+          aiAutomation: "AI Automation for company",
+          aiChatbot: "AI Chatbot",
+          mvpWebApp: "MVP Web Application for startup",
+          enterpriseWebApp: "Enterprise-grade Web Application",
+          other: "Other services"
+        };
+        return serviceNames[service];
+      })
+      .join(", ");
+
+    // Prepare email content
+    const emailSubject = `New Contact Form Submission from ${formData.name}`;
+    const emailBody = `
+Name: ${formData.name}
+Email: ${formData.email}
+Company: ${formData.company}
+Website: ${formData.website || 'Not provided'}
+Services Interested In: ${selectedServices || 'None selected'}
+Message:
+${formData.message}
+    `;
+
+    // Send email using mailto link
+    window.location.href = `mailto:appscamelot@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Reset form after submission
     setFormData({
       name: '',
       email: '',
       company: '',
-      message: ''
+      website: '',
+      message: '',
+      services: {
+        aiAutomation: false,
+        aiChatbot: false,
+        mvpWebApp: false,
+        enterpriseWebApp: false,
+        other: false
+      }
     });
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleServiceChange = (service) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      services: {
+        ...formData.services,
+        [service]: !formData.services[service]
+      }
     });
   };
 
@@ -177,20 +230,108 @@ const Contact = () => {
                   />
                 </div>
               </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                    Company Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    required
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="Your company name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">
+                    Company Website
+                  </label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="https://yourcompany.com"
+                  />
+                </div>
+              </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  What services are you interested in? *
                 </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                  placeholder="Your company name"
-                />
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="flex items-start">
+                    <input
+                      type="checkbox"
+                      id="aiAutomation"
+                      checked={formData.services.aiAutomation}
+                      onChange={() => handleServiceChange('aiAutomation')}
+                      className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="aiAutomation" className="ml-2 text-gray-700">
+                      AI Automation for my company
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <input
+                      type="checkbox"
+                      id="aiChatbot"
+                      checked={formData.services.aiChatbot}
+                      onChange={() => handleServiceChange('aiChatbot')}
+                      className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="aiChatbot" className="ml-2 text-gray-700">
+                      AI Chatbot solution
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <input
+                      type="checkbox"
+                      id="mvpWebApp"
+                      checked={formData.services.mvpWebApp}
+                      onChange={() => handleServiceChange('mvpWebApp')}
+                      className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="mvpWebApp" className="ml-2 text-gray-700">
+                      MVP Web App for startup
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <input
+                      type="checkbox"
+                      id="enterpriseWebApp"
+                      checked={formData.services.enterpriseWebApp}
+                      onChange={() => handleServiceChange('enterpriseWebApp')}
+                      className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="enterpriseWebApp" className="ml-2 text-gray-700">
+                      Enterprise Web Application
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-start md:col-span-2">
+                    <input
+                      type="checkbox"
+                      id="other"
+                      checked={formData.services.other}
+                      onChange={() => handleServiceChange('other')}
+                      className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="other" className="ml-2 text-gray-700">
+                      Other services
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <div>
