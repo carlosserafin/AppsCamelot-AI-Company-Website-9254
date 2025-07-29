@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMail, FiPhone, FiMapPin, FiSend, FiClock, FiGlobe } = FiIcons;
+const { FiMail, FiPhone, FiMapPin, FiSend, FiClock, FiGlobe, FiCheck, FiX } = FiIcons;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,55 +21,79 @@ const Contact = () => {
       other: false
     }
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleSubmit = (e) => {
+  // EmailJS Configuration
+  const EMAILJS_SERVICE_ID = "service_dlgoa68";
+  const EMAILJS_TEMPLATE_ID = "template_cggrfwk";
+  const EMAILJS_PUBLIC_KEY = "T0lPNWBH05ehiV503";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
     
-    // Prepare services selected for email
-    const selectedServices = Object.entries(formData.services)
-      .filter(([_, isSelected]) => isSelected)
-      .map(([service]) => {
-        const serviceNames = {
-          aiAutomation: "AI Automation for company",
-          aiChatbot: "AI Chatbot",
-          mvpWebApp: "MVP Web Application for startup",
-          enterpriseWebApp: "Enterprise-grade Web Application",
-          other: "Other services"
-        };
-        return serviceNames[service];
-      })
-      .join(", ");
+    try {
+      // Prepare services selected for email
+      const selectedServices = Object.entries(formData.services)
+        .filter(([_, isSelected]) => isSelected)
+        .map(([service]) => {
+          const serviceNames = {
+            aiAutomation: "AI Automation for company",
+            aiChatbot: "AI Chatbot",
+            mvpWebApp: "MVP Web Application for startup",
+            enterpriseWebApp: "Enterprise-grade Web Application",
+            other: "Other services"
+          };
+          return serviceNames[service];
+        })
+        .join(", ");
 
-    // Prepare email content
-    const emailSubject = `New Contact Form Submission from ${formData.name}`;
-    const emailBody = `
-Name: ${formData.name}
-Email: ${formData.email}
-Company: ${formData.company}
-Website: ${formData.website || 'Not provided'}
-Services Interested In: ${selectedServices || 'None selected'}
-Message:
-${formData.message}
-    `;
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        company_name: formData.company,
+        company_website: formData.website || 'Not provided',
+        services_interested: selectedServices || 'None selected',
+        message: formData.message,
+        to_email: 'appscamelot@gmail.com'
+      };
 
-    // Send email using mailto link
-    window.location.href = `mailto:appscamelot@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
 
-    // Reset form after submission
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      website: '',
-      message: '',
-      services: {
-        aiAutomation: false,
-        aiChatbot: false,
-        mvpWebApp: false,
-        enterpriseWebApp: false,
-        other: false
-      }
-    });
+      setSubmitStatus('success');
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        website: '',
+        message: '',
+        services: {
+          aiAutomation: false,
+          aiChatbot: false,
+          mvpWebApp: false,
+          enterpriseWebApp: false,
+          other: false
+        }
+      });
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -197,6 +222,36 @@ ${formData.message}
             className="bg-gray-50 rounded-xl p-8"
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+            
+            {/* Success/Error Messages */}
+            {submitStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3"
+              >
+                <SafeIcon icon={FiCheck} className="text-green-500 text-xl" />
+                <div>
+                  <p className="text-green-800 font-medium">Message sent successfully!</p>
+                  <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
+                </div>
+              </motion.div>
+            )}
+
+            {submitStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-3"
+              >
+                <SafeIcon icon={FiX} className="text-red-500 text-xl" />
+                <div>
+                  <p className="text-red-800 font-medium">Error sending message</p>
+                  <p className="text-red-600 text-sm">Please try again or contact us directly.</p>
+                </div>
+              </motion.div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -212,6 +267,7 @@ ${formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Your full name"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -227,6 +283,7 @@ ${formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="your@email.com"
+                    disabled={isSubmitting}
                   />
                 </div>
               </div>
@@ -244,6 +301,7 @@ ${formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Your company name"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -258,6 +316,7 @@ ${formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="https://yourcompany.com"
+                    disabled={isSubmitting}
                   />
                 </div>
               </div>
@@ -274,6 +333,7 @@ ${formData.message}
                       checked={formData.services.aiAutomation}
                       onChange={() => handleServiceChange('aiAutomation')}
                       className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                      disabled={isSubmitting}
                     />
                     <label htmlFor="aiAutomation" className="ml-2 text-gray-700">
                       AI Automation for my company
@@ -287,6 +347,7 @@ ${formData.message}
                       checked={formData.services.aiChatbot}
                       onChange={() => handleServiceChange('aiChatbot')}
                       className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                      disabled={isSubmitting}
                     />
                     <label htmlFor="aiChatbot" className="ml-2 text-gray-700">
                       AI Chatbot solution
@@ -300,6 +361,7 @@ ${formData.message}
                       checked={formData.services.mvpWebApp}
                       onChange={() => handleServiceChange('mvpWebApp')}
                       className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                      disabled={isSubmitting}
                     />
                     <label htmlFor="mvpWebApp" className="ml-2 text-gray-700">
                       MVP Web App for startup
@@ -313,6 +375,7 @@ ${formData.message}
                       checked={formData.services.enterpriseWebApp}
                       onChange={() => handleServiceChange('enterpriseWebApp')}
                       className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                      disabled={isSubmitting}
                     />
                     <label htmlFor="enterpriseWebApp" className="ml-2 text-gray-700">
                       Enterprise Web Application
@@ -326,6 +389,7 @@ ${formData.message}
                       checked={formData.services.other}
                       onChange={() => handleServiceChange('other')}
                       className="mt-1 h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                      disabled={isSubmitting}
                     />
                     <label htmlFor="other" className="ml-2 text-gray-700">
                       Other services
@@ -347,17 +411,32 @@ ${formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                   placeholder="Tell us about your project and how we can help..."
+                  disabled={isSubmitting}
                 ></textarea>
               </div>
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transition-shadow"
+                disabled={isSubmitting}
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                className={`w-full py-4 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 shadow-lg transition-all ${
+                  isSubmitting 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white hover:shadow-xl'
+                }`}
               >
-                <span>Send Message</span>
-                <SafeIcon icon={FiSend} className="text-lg" />
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Send Message</span>
+                    <SafeIcon icon={FiSend} className="text-lg" />
+                  </>
+                )}
               </motion.button>
             </form>
             <p className="text-sm text-gray-600 mt-4 text-center">
