@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMail, FiPhone, FiMapPin, FiLinkedin, FiTwitter } = FiIcons;
+const { FiMail, FiPhone, FiMapPin, FiLinkedin, FiTwitter, FiMessageCircle } = FiIcons;
 
 const Footer = () => {
   const footerLinks = {
@@ -38,8 +38,16 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/carlosserafin', label: 'LinkedIn' },
-    { icon: FiTwitter, href: '#', label: 'Twitter' }
+    {
+      icon: FiLinkedin,
+      href: 'https://www.linkedin.com/in/carlosserafin',
+      label: 'LinkedIn'
+    },
+    {
+      icon: FiTwitter,
+      href: '#',
+      label: 'Twitter'
+    }
   ];
 
   return (
@@ -91,8 +99,17 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <SafeIcon icon={FiPhone} className="text-blue-400" />
-                <span>+5214776307150</span>
+                <span>+524771796038</span>
               </div>
+              <a 
+                href="https://wa.me/524771796038" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 text-gray-300 hover:text-green-400 transition-colors"
+              >
+                <SafeIcon icon={FiMessageCircle} className="text-green-400" />
+                <span>WhatsApp: +524771796038</span>
+              </a>
               <div className="flex items-center space-x-3 text-gray-300">
                 <SafeIcon icon={FiMapPin} className="text-blue-400" />
                 <span>León Guanajuato, México</span>

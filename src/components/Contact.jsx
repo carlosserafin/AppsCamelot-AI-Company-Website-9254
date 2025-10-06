@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMail, FiPhone, FiMapPin, FiSend, FiClock, FiGlobe, FiCheck, FiX } = FiIcons;
+const { FiMail, FiPhone, FiMapPin, FiSend, FiClock, FiGlobe, FiCheck, FiX, FiMessageCircle } = FiIcons;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const Contact = () => {
       other: false
     }
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -34,7 +34,7 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    
+
     try {
       // Prepare services selected for email
       const selectedServices = Object.entries(formData.services)
@@ -71,7 +71,7 @@ const Contact = () => {
       );
 
       setSubmitStatus('success');
-      
+
       // Reset form after successful submission
       setFormData({
         name: '',
@@ -98,7 +98,10 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
   const handleServiceChange = (service) => {
@@ -121,8 +124,14 @@ const Contact = () => {
     {
       icon: FiPhone,
       title: 'Phone',
-      value: '+5214776307150',
-      link: 'tel:+5214776307150'
+      value: '+52 477 179 6038',
+      link: 'tel:+524771796038'
+    },
+    {
+      icon: FiMessageCircle,
+      title: 'WhatsApp',
+      value: '+52 477 179 6038',
+      link: 'https://wa.me/524771796038'
     },
     {
       icon: FiMapPin,
@@ -170,13 +179,23 @@ const Contact = () => {
                   <motion.a
                     key={info.title}
                     href={info.link}
+                    target={info.title === 'WhatsApp' ? '_blank' : undefined}
+                    rel={info.title === 'WhatsApp' ? 'noopener noreferrer' : undefined}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
+                    className={`flex items-center space-x-4 p-4 rounded-lg transition-colors group ${
+                      info.title === 'WhatsApp' 
+                        ? 'bg-green-50 hover:bg-green-100 border border-green-200' 
+                        : 'bg-gray-50 hover:bg-gray-100'
+                    }`}
                   >
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <SafeIcon icon={info.icon} className="text-white text-lg" />
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform ${
+                      info.title === 'WhatsApp' 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white'
+                    }`}>
+                      <SafeIcon icon={info.icon} className="text-lg" />
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">{info.title}</div>
@@ -222,7 +241,7 @@ const Contact = () => {
             className="bg-gray-50 rounded-xl p-8"
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
-            
+
             {/* Success/Error Messages */}
             {submitStatus === 'success' && (
               <motion.div
@@ -287,6 +306,7 @@ const Contact = () => {
                   />
                 </div>
               </div>
+
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
@@ -339,7 +359,6 @@ const Contact = () => {
                       AI Automation for my company
                     </label>
                   </div>
-                  
                   <div className="flex items-start">
                     <input
                       type="checkbox"
@@ -353,7 +372,6 @@ const Contact = () => {
                       AI Chatbot solution
                     </label>
                   </div>
-                  
                   <div className="flex items-start">
                     <input
                       type="checkbox"
@@ -367,7 +385,6 @@ const Contact = () => {
                       MVP Web App for startup
                     </label>
                   </div>
-                  
                   <div className="flex items-start">
                     <input
                       type="checkbox"
@@ -381,7 +398,6 @@ const Contact = () => {
                       Enterprise Web Application
                     </label>
                   </div>
-                  
                   <div className="flex items-start md:col-span-2">
                     <input
                       type="checkbox"
@@ -421,8 +437,8 @@ const Contact = () => {
                 whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 className={`w-full py-4 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 shadow-lg transition-all ${
-                  isSubmitting 
-                    ? 'bg-gray-400 cursor-not-allowed' 
+                  isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white hover:shadow-xl'
                 }`}
               >
@@ -439,6 +455,7 @@ const Contact = () => {
                 )}
               </motion.button>
             </form>
+
             <p className="text-sm text-gray-600 mt-4 text-center">
               We'll get back to you within 24 hours during business days.
             </p>
