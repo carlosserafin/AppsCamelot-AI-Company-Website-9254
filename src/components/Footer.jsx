@@ -18,7 +18,7 @@ const Footer = () => {
       'About Us',
       'Our Team',
       'Careers',
-      'Blog',
+      { name: 'Blog', href: 'https://appscamelot.com/blog/' },
       'Case Studies'
     ],
     Resources: [
@@ -101,9 +101,9 @@ const Footer = () => {
                 <SafeIcon icon={FiPhone} className="text-blue-400" />
                 <span>+524771796038</span>
               </div>
-              <a 
-                href="https://wa.me/524771796038" 
-                target="_blank" 
+              <a
+                href="https://wa.me/524771796038"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3 text-gray-300 hover:text-green-400 transition-colors"
               >
@@ -172,16 +172,24 @@ const Footer = () => {
             >
               <h4 className="text-lg font-semibold text-white">{category}</h4>
               <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isExternal = typeof link === 'object';
+                  const linkName = isExternal ? link.name : link;
+                  const linkHref = isExternal ? link.href : '#';
+
+                  return (
+                    <li key={linkName}>
+                      <a
+                        href={linkHref}
+                        target={isExternal ? '_blank' : undefined}
+                        rel={isExternal ? 'noopener noreferrer' : undefined}
+                        className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+                      >
+                        {linkName}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           ))}

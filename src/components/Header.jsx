@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMenu, FiX, FiCode, FiUsers, FiMail, FiSettings } = FiIcons;
+const { FiMenu, FiX, FiCode, FiUsers, FiMail, FiSettings, FiBookOpen } = FiIcons;
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,13 +12,20 @@ const Header = () => {
     { name: 'Home', href: '#home', icon: FiCode },
     { name: 'Services', href: '#services', icon: FiSettings },
     { name: 'About', href: '#about', icon: FiUsers },
-    { name: 'Contact', href: '#contact', icon: FiMail }
+    { name: 'Contact', href: '#contact', icon: FiMail },
+    { name: 'Blog', href: 'https://appscamelot.com/blog/', icon: FiBookOpen, external: true }
   ];
 
   const scrollToSection = (href) => {
+    if (href.startsWith('http')) {
+      window.open(href, '_blank', 'noopener,noreferrer');
+      setIsMenuOpen(false);
+      return;
+    }
+
     const element = document.querySelector(href);
     if (element) {
-      const headerHeight = 80; // Approximate header height
+      const headerHeight = 80;
       const elementPosition = element.offsetTop - headerHeight;
       window.scrollTo({
         top: elementPosition,
