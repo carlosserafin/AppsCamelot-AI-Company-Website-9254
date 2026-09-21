@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMail, FiPhone, FiMapPin, FiLinkedin, FiTwitter, FiMessageCircle } = FiIcons;
+const {FiMail,FiPhone,FiMapPin,FiLinkedin,FiTwitter,FiMessageCircle}=FiIcons;
 
-const Footer = () => {
-  const footerLinks = {
+const Footer=()=> {
+  const footerLinks={
     Services: [
       'WAiBOT AI Sales Agents',
       'Customer Care AI',
@@ -17,8 +17,9 @@ const Footer = () => {
     Company: [
       'About Us',
       'Our Team',
+      {name: 'CEO Partner Opportunity',href: 'https://ceo-wanted.appscamelot.com/'},
       'Careers',
-      { name: 'Blog', href: 'https://appscamelot.com/blog/' },
+      {name: 'Blog',href: 'https://appscamelot.com/blog/'},
       'Case Studies'
     ],
     Resources: [
@@ -37,30 +38,20 @@ const Footer = () => {
     ]
   };
 
-  const socialLinks = [
-    {
-      icon: FiLinkedin,
-      href: 'https://www.linkedin.com/in/carlosserafin',
-      label: 'LinkedIn'
-    },
-    {
-      icon: FiTwitter,
-      href: '#',
-      label: 'Twitter'
-    }
+  const socialLinks=[
+    {icon: FiLinkedin,href: 'https://www.linkedin.com/in/carlosserafin',label: 'LinkedIn'},
+    {icon: FiTwitter,href: '#',label: 'Twitter'}
   ];
 
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
         <div className="py-12 grid lg:grid-cols-5 gap-8">
-          {/* Company Info */}
           <div className="lg:col-span-2 space-y-6">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6}}
               className="flex items-center space-x-3"
             >
               <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden bg-white">
@@ -79,18 +70,18 @@ const Footer = () => {
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6,delay: 0.1}}
               className="text-gray-300 leading-relaxed"
             >
-              Transforming businesses worldwide with cutting-edge AI solutions, WAiBOT - the ultimate AI Sales Expert Agents, and Ticket Factura for seamless electronic invoicing.
+              Transforming businesses worldwide with cutting-edge AI solutions,WAiBOT - the ultimate AI Sales Expert Agents,and Ticket Factura for seamless electronic invoicing.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6,delay: 0.2}}
               className="space-y-3"
             >
               <div className="flex items-center space-x-3 text-gray-300">
@@ -112,15 +103,14 @@ const Footer = () => {
               </a>
               <div className="flex items-center space-x-3 text-gray-300">
                 <SafeIcon icon={FiMapPin} className="text-blue-400" />
-                <span>León Guanajuato, México</span>
+                <span>León Guanajuato,México</span>
               </div>
             </motion.div>
 
-            {/* Logo Group */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6,delay: 0.3}}
               className="flex items-center space-x-4 pt-2"
             >
               <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center overflow-hidden">
@@ -139,14 +129,13 @@ const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Social Links */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6,delay: 0.3}}
               className="flex space-x-4"
             >
-              {socialLinks.map((social) => (
+              {socialLinks.map((social)=> (
                 <a
                   key={social.label}
                   href={social.href}
@@ -161,21 +150,20 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* Footer Links */}
-          {Object.entries(footerLinks).map(([category, links], index) => (
+          {Object.entries(footerLinks).map(([category,links],index)=> (
             <motion.div
               key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
+              initial={{opacity: 0,y: 20}}
+              whileInView={{opacity: 1,y: 0}}
+              transition={{duration: 0.6,delay: 0.1 * (index + 1)}}
               className="space-y-4"
             >
               <h4 className="text-lg font-semibold text-white">{category}</h4>
               <ul className="space-y-2">
-                {links.map((link) => {
-                  const isExternal = typeof link === 'object';
-                  const linkName = isExternal ? link.name : link;
-                  const linkHref = isExternal ? link.href : '#';
+                {links.map((link)=> {
+                  const isExternal=typeof link==='object';
+                  const linkName=isExternal ? link.name : link;
+                  const linkHref=isExternal ? link.href : '#';
 
                   return (
                     <li key={linkName}>
@@ -195,11 +183,10 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Newsletter Signup */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{opacity: 0,y: 20}}
+          whileInView={{opacity: 1,y: 0}}
+          transition={{duration: 0.6}}
           className="py-8 border-t border-gray-800"
         >
           <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -222,11 +209,10 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Bottom Footer */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          initial={{opacity: 0}}
+          whileInView={{opacity: 1}}
+          transition={{duration: 0.6}}
           className="py-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
         >
           <p className="text-gray-400 text-sm">

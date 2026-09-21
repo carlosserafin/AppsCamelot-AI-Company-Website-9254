@@ -1,53 +1,52 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React,{useState} from 'react';
+import {motion} from 'framer-motion';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiMenu, FiX, FiCode, FiUsers, FiMail, FiSettings, FiBookOpen } = FiIcons;
+const {FiMenu,FiX,FiCode,FiUsers,FiMail,FiSettings,FiBookOpen,FiBriefcase}=FiIcons;
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Header=()=> {
+  const [isMenuOpen,setIsMenuOpen]=useState(false);
 
-  const navItems = [
-    { name: 'Home', href: '#home', icon: FiCode },
-    { name: 'Services', href: '#services', icon: FiSettings },
-    { name: 'About', href: '#about', icon: FiUsers },
-    { name: 'Contact', href: '#contact', icon: FiMail },
-    { name: 'Blog', href: 'https://appscamelot.com/blog/', icon: FiBookOpen, external: true }
+  const navItems=[
+    {name: 'Home',href: '#home',icon: FiCode},
+    {name: 'Services',href: '#services',icon: FiSettings},
+    {name: 'About',href: '#about',icon: FiUsers},
+    {name: 'Contact',href: '#contact',icon: FiMail},
+    {name: 'CEO Partner',href: 'https://ceo-wanted.appscamelot.com/',icon: FiBriefcase,external: true},
+    {name: 'Blog',href: 'https://appscamelot.com/blog/',icon: FiBookOpen,external: true}
   ];
 
-  const scrollToSection = (href) => {
+  const scrollToSection=(href)=> {
     if (href.startsWith('http')) {
-      window.open(href, '_blank', 'noopener,noreferrer');
+      window.open(href,'_blank','noopener,noreferrer');
       setIsMenuOpen(false);
       return;
     }
 
-    const element = document.querySelector(href);
+    const element=document.querySelector(href);
+
     if (element) {
-      const headerHeight = 80;
-      const elementPosition = element.offsetTop - headerHeight;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
+      const headerHeight=80;
+      const elementPosition=element.offsetTop - headerHeight;
+      window.scrollTo({top: elementPosition,behavior: 'smooth'});
     }
+
     setIsMenuOpen(false);
   };
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{y: -100}}
+      animate={{y: 0}}
       className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
+            whileHover={{scale: 1.05}}
             className="flex items-center space-x-3 cursor-pointer"
-            onClick={() => scrollToSection('#home')}
+            onClick={()=> scrollToSection('#home')}
           >
             <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
               <img
@@ -64,13 +63,12 @@ const Header = () => {
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
+            {navItems.map((item)=> (
               <motion.button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                whileHover={{ scale: 1.05 }}
+                onClick={()=> scrollToSection(item.href)}
+                whileHover={{scale: 1.05}}
                 className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               >
                 <SafeIcon icon={item.icon} className="text-sm" />
@@ -79,26 +77,24 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={()=> setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <SafeIcon icon={isMenuOpen ? FiX : FiMenu} className="text-xl" />
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{opacity: 0,y: -20}}
+            animate={{opacity: 1,y: 0}}
             className="md:hidden py-4 border-t border-gray-200"
           >
-            {navItems.map((item) => (
+            {navItems.map((item)=> (
               <button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
+                onClick={()=> scrollToSection(item.href)}
                 className="flex items-center space-x-3 py-3 w-full text-left text-gray-700 hover:text-blue-600 transition-colors"
               >
                 <SafeIcon icon={item.icon} className="text-lg" />

@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
 import CEOSection from './components/CEOSection';
+import CEOOpportunityBanner from './components/CEOOpportunityBanner';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './App.css';
@@ -17,6 +18,7 @@ function App() {
       <About />
       <CEOSection />
       <Contact />
+      <CEOOpportunityBanner />
       <Footer />
     </div>
   );
